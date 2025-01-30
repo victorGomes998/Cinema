@@ -9,7 +9,7 @@ using Cinema.Data;
 
 namespace Cinema.Migrations
 {
-    [DbContext(typeof(FilmeContext))]
+    [DbContext(typeof(BancoContext))]
     [Migration("20250129140059_CriandoTabelaFilme")]
     partial class CriandoTabelaFilme
     {
