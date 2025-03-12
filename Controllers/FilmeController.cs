@@ -13,7 +13,7 @@ namespace Cinema.Controllers;
 /// </summary>
 [ApiController]
 [Route("[controller]")]
-public class FilmesController : ControllerBase
+public class FilmeController : ControllerBase
 {
     private BancoContext _context;
     private IMapper _mapper;
@@ -21,7 +21,7 @@ public class FilmesController : ControllerBase
     /// <summary>
     /// Filme
     /// </summary>
-    public FilmesController(BancoContext context, IMapper mapper)
+    public FilmeController(BancoContext context, IMapper mapper)
     {
         _context = context;
         _mapper = mapper;
@@ -61,7 +61,7 @@ public class FilmesController : ControllerBase
     /// <returns>IActionResult</returns>
     /// <response code="200">Caso o filme esteja cadastrado</response>
     /// <response code="404">Caso não encontre o filme</response>
-    [HttpGet("v1/{Id}")]
+    [HttpGet("v1/{id}")]
     public IActionResult BuscaFilmePorId(int id)
     {
         var filme = _context.Filmes.FirstOrDefault(a => a.Id == id);

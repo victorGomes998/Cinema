@@ -15,13 +15,23 @@ public class EnderecoController : ControllerBase
     private BancoContext _context;
     private IMapper _mapper;
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="context"></param>
+    /// <param name="mapper"></param>
     public EnderecoController(BancoContext context, IMapper mapper)
     {
         _context = context;
         _mapper = mapper;
     }
 
-    [HttpPost("v1/{id}")]
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="enderecoDto"></param>
+    /// <returns></returns>
+    [HttpPost("v1")]
     public IActionResult AdicionaEndereco([FromBody] CreateEnderecoDto enderecoDto)
     {
         Endereco endereco = _mapper.Map<Endereco>(enderecoDto);
@@ -57,7 +67,6 @@ public class EnderecoController : ControllerBase
         var enderecoDtoDto = _mapper.Map<ReadEnderecoDto>(endereco);
 
         return Ok(enderecoDtoDto);
-
     }
 
     /// <summary>
@@ -84,7 +93,7 @@ public class EnderecoController : ControllerBase
     /// </summary>
     /// <param name="id"></param>
     /// <returns></returns>
-    [HttpDelete]
+    [HttpDelete("v1/{id}")]
     public IActionResult DeletaEstabelecimento(int id)
     {
         var endereco = _context.Enderecos.FirstOrDefault(a => a.Id == id);

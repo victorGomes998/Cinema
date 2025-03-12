@@ -10,18 +10,28 @@ namespace Cinema.Controllers;
 /// </summary>
 [ApiController]
 [Route("[controller]")]
-public class EstabelecimentosController : ControllerBase
+public class EstabelecimentoController : ControllerBase
 {   
     private BancoContext _context;
     private IMapper _mapper;
 
-    public EstabelecimentosController(BancoContext context, IMapper mapper)
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="context"></param>
+    /// <param name="mapper"></param>
+    public EstabelecimentoController(BancoContext context, IMapper mapper)
     {
         _context = context;
         _mapper = mapper;
     }
 
-    [HttpPost("v1/{id}")]
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="estabelecimentoDto"></param>
+    /// <returns></returns>
+    [HttpPost("v1")]
     public IActionResult AdicionaEstabelecimento([FromBody] CreateEstabelecimentoDto estabelecimentoDto)
     {
         Estabelecimento estabelecimento = _mapper.Map<Estabelecimento>(estabelecimentoDto);
@@ -38,7 +48,7 @@ public class EstabelecimentosController : ControllerBase
     [HttpGet("v1")]
     public IEnumerable<ReadEstabelecimentoDto> BuscaEstabelcimentos(int pagina = 0)
     {
-        return _mapper.Map<List<ReadEstabelecimentoDto>>(_context.Estabelecimentos.Skip(10 * pagina).Take(10));
+        return _mapper.Map<List<ReadEstabelecimentoDto>>(_context.Estabelecimentos.Skip(10 * pagina).Take(10).ToList());
     }
 
     /// <summary>
@@ -58,6 +68,12 @@ public class EstabelecimentosController : ControllerBase
 
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="id"></param>
+    /// <param name="estabelecimentoDto"></param>
+    /// <returns></returns>
     [HttpPut("v1/{id}")]
     public IActionResult AtualizaEstabelecimento(int id, [FromBody] UpdateEstabelecimentoDto estabelecimentoDto)
     {
@@ -71,7 +87,12 @@ public class EstabelecimentosController : ControllerBase
         return NoContent();
     }
 
-    [HttpDelete]
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="id"></param>
+    /// <returns></returns>
+    [HttpDelete("v1/{id}")]
     public IActionResult DeletaEstabelecimento(int id)
     {
         var estabelecimento = _context.Estabelecimentos.FirstOrDefault(a => a.Id == id);
